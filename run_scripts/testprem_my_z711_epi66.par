@@ -1,0 +1,152 @@
+# run description
+flat=0                   #flag for flat earth 0: Spherical 1: flat
+
+#following for GRT description
+dp=0.05                  #dt for GRT calculation
+#nt=1500                  #nt for GRT calculation
+nt=3000                  #nt for GRT calculation
+tstart=530.0             #start time
+greenfile=green_prem_z711_epi66.out      #green file output
+
+#following for finite-difference description
+#h=0.5                   #dx for finite-difference
+#dt=0.005               #dt for finite-difference
+#xmin=4500.5           #left boundary of finite-difference (km)
+#nx=2008                 #number of horizontal meshes
+h=1.0                   #dx for finite-difference
+dt=0.0125               #dt for finite-difference
+xmin=6650.5           #left boundary of finite-difference (km)
+nx=1503                 #number of horizontal meshes
+nf=10                   #number of meshes in the fluid
+nd=40                   #number of meshes in region (only reflected calculated)
+nl=43                    #number of meshes in the left region
+nh=200                   #number of meshes for absorbing region
+afilter=0               #mode for filter applied
+			 # 0 -> no filter 1 -> bottom filtered
+			 # 2 -> bottom left filtered
+			 # 3 -> bottom left top filtered
+			 # 4 -> all four regions filtered
+atten=4                  #mode for attenuation applied
+			 # 0 -> no attenuation 1 -> bottom attentuated
+			 # 2 -> bottom left attentuated
+			 # 3 -> bottom left top attentuated
+			 # 4 -> all four regions attentuated
+ass=0.9999               # percentage of wave attenuation
+#kdt=10                    #time spacing of receivers of output
+kdt=4                    #time spacing of receivers of output
+kdx=1                    #mesh spacing of output
+source=-4                 #output waves 0 2 for P and 1 2 for S
+fdout=green_kir_prem_z711_epi66.out      #output Green's functions from FD (inculding
+			 #Div_x Ddiv_x/Dz Div_z Ddiv_z/Dz (source=0 2)
+			 #Cur_x Dcur_x/Dz Cur_z Dcur_z/Dz (source=1 2)
+zcore=0.0
+ztop=4                   #receiver above the interface
+topp=0                   #output P wave Greens in top
+toppfile=Pgreen_kir.out  #output file for P in top
+tops=0                   #output S wave Greens in top
+topsfile=Sgreen_kir.out  #output file for S in top
+
+
+#following for snapshot
+plot_snap=0              #plotting snapshot or not
+startsnap=125            #starting time step
+incresnap=400            #time steps between different snapshots
+plot_w=0                 #vertical velocity (absolute value) or not (radial)
+plot_trace=0             #plotting traces or not
+
+# Ling: 03/01/2004
+xtrace=50                #trace number in x-direction
+ztrace=5                 #location number in z-direction
+xbeg=1.0	         #first location in x-direction (relative to xmin)
+idxplot=20               #idxplot*h = x-direction interval for plot
+zbeg=-5.0	         #first location in z-direction (relative to FD output depth)
+idzplot=-100	         #idzplot*h = depth interval for plot
+
+# following for model description
+raymodel="prem_epi66.par"      #model for GRT and FD
+                         #Format:  layers, source_layer
+			 #         vp[0]      vs[0]      d[0]      th[0]
+			 #         ......     ......     .....     .....
+			 #         vp[layers] vs[layers] d[layers] th[layers]
+			 #         number_of_rays
+			 #         Total_segs source_layer ... final_layer
+			 #         1          ..........
+			 #Note: Waves are down to the bottom of final_layer
+fdmodel=fdmy             # FD model
+                         #Format: num_of_layers
+			 #        numb_of nods vp, vs, d
+			 #        x positions of nodes->counted from xmin
+			 #        z positions of nodes->counted from iz=0 (or
+			 #            bottom of final_layer)
+			 #        numb_of nods vp, vs, d
+			 #        x positions of nodes->counted from xmin
+			 #        z positions of nodes->counted from iz=0 (or
+			 #            bottom of final_layer)
+
+#following for the source
+reduce_vel=60.0          #dist/time
+theta=33.0               # theta
+dip=45.                  # dip
+lamda=52.0               # lamda
+azmuth=303.0             # azimuth
+#following for the source time Gauss function
+ts=0.5                   # center of source time Gauss function
+sgm=0.2                  # width of source time Gauss function
+
+#following for convolving the source time function
+Greens_Output=
+Moment=1.e30             #Moment (dyn-cm)
+Conv_Source=0            #Convolving with Seismic Source
+Dt1=2.0                  #For triangle Dt1, Dt2, Dt3
+Dt2=1.0                  #For triangle Dt1, Dt2, Dt3
+Dt3=2.0                  #For triangle Dt1, Dt2, Dt3
+point_source=1           #do line -> point source correction
+
+beta=3.9129              #shear velocity at source layer
+zs=31.0                  #source depth
+rhos=2.9096              #density at source layer
+
+
+#following for the demult2kir
+ntsample=1                          #sample spacing
+nt_kir=4000                         #time steps for output
+kirfile_x=fdout.x                   #x-component of Green's
+kirfile_z=fdout.z                   #z-component of Green's
+
+#following for WKM
+WKM_Library_Exist=1                 #WKM Library already exists?
+greenfile_WKM=/home/wen/PKPGreens/GreenPKPGRT
+				    #output file for WKM (libary for Green's)
+ReadFile=0
+RayParFile=/home/wen/PKPGreens/rayparGRT
+                                    #Ray Par file from WKM
+raytype=5                           # P wave
+Gtstart=430                         #starting time
+Greduce_vel=3                       # reduce velocity dt=(degree)*RAD/reduce
+bottom=490
+xmax_WKM=17791.188                  #Max Distance in WKM (km)
+dx_WKM=1.0                          #spacing of receivers (km)
+nt_WKM=4000                         #time steps
+nr_WKM=7000                         #number of receivers
+dt_WKM=0.05                         #time interval (seconds)
+
+#following for the Kirchhoff
+greenfile_kir=GreenWKM_kir          #modified to (Green, dGreen/dz)
+
+#following for the GRT and Kirchhoff interface. This is for the
+#direct interfacing between GRT and Kirchhoff, no FD involved.
+bounce=1
+GRTtstart=160                       #tstart for GRT calculation
+distmin=-1000.5                      #left boundary
+distmax=4400                        #right boundary
+comp=0                              #component will be calculated
+
+GRTkirfile_x=grtout.x               #x-component of Green's from GRT
+GRTkirfile_z=grtout.z               #z-component of Green's from GRT
+
+
+# nfil
+nfil=1
+# ntt
+#ntt=4600
+ntt=4000

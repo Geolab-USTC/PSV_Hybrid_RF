@@ -1,0 +1,48 @@
+Modified 2D PSV Hybrid Code
+http://seis.ustc.edu.cn/PSV_Hybrid_RF
+###########################
+
+The package is free and distributed in the hope that it will be useful. 
+You can use it and/or modify it under the terms of the GNU General Public License 
+for NON-COMMERCIAL purposes.
+
+It does not come with any warranties, nor is it guaranteed to work on your computer.
+The user assumes full responsibility for the use of this system.
+We are NOT responsible for any damage that may follow from correct or incorrect
+use of this package.
+
+Permission is granted to make and distribute verbatim copies of this license provided
+that the copyright notice and these paragraphs are preserved on all copies.
+
+Description
+===========
+
+This package contains 2D PSV Hybrid codes, originally developed by Lianxing Wen,
+modified by Ling Chen for recerver function analysis.
+
+Reference
+=========
+
+Wen and Helmberger (1998), JGR
+
+Requirement
+===========
+
+#. Seismic Analysis Code (SAC)
+
+#. Numerical Recipes (http://www.nr.com/)
+
+   nrutil.h and nrutil.c from Numerical Recipes are needed, which should be purchased.
+
+Installation
+============
+
+Go to src directory, and run make.
+
+Contents
+=========
+
+- src: source codes
+- run_scripts: scripts and parameter files
+  - Runmodel.pl: Lianxing Wen's original perl script
+  - Runmodel_rf.sh: script for receiver function analysis modified by Ling Chen
